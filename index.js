@@ -144,6 +144,30 @@ app.patch("/save-score", async (req, res) => {
   }
 });
 
+
+
+// Admin Login Page (Simple UI)
+app.get('/admin-login', (req, res) => {
+  res.send(`
+    <html>
+      <head><title>Admin Login</title></head>
+      <body>
+        <h2>Enter Admin Password</h2>
+        <form onsubmit="event.preventDefault(); login();">
+          <input type="password" id="pwd" placeholder="Password" required />
+          <button type="submit">Login</button>
+        </form>
+        <script>
+          function login() {
+            const pwd = document.getElementById('pwd').value;
+            window.location.href = '/admin?password=' + encodeURIComponent(pwd);
+          }
+        </script>
+      </body>
+    </html>
+  `);
+});
+
 // Admin Dashboard Route with password protection
 app.get('/admin', async (req, res) => {
   const adminPassword = 'Ubik@123'; // Set your admin password her
