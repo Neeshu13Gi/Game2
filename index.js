@@ -144,6 +144,40 @@ app.patch("/save-score", async (req, res) => {
   }
 });
 
+// Admin Dashboard Route
+app.get('/admin', async (req, res) => {
+  try {
+    const players = await Player.find(); // Fetch all player records from MongoDB
+    res.send(`
+      <html>
+        <head>
+          <title>Admin Dashboard</title>
+          <style>
+            table { width: 100%; border-collapse: collapse; }
+            table, th, td { border: 1px solid black; }
+            th, td { padding: 8px; text-align: left; }
+          </style>
+        </head>
+        <body>
+          <h1>Admin Dashboard</h1>
+          <table>
+            <tr><th>Email</th><th>Score</th><th>Phone Number</th><th>Feedback Stars</th></tr>
+            ${players.map(player => `
+              <tr>
+                <td>${player.email}</td>
+                <td>${player.score}</td>
+                <td>${player.phone}</td>
+                <td>${player.stars}</td>
+              </tr>`).join('')}
+          </table>
+        </body>
+      </html>
+    `);
+  } catch (err) {
+    res.status(500).send('Error fetching player data');
+  }
+});
+
 
 
 // Start server
