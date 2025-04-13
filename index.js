@@ -102,8 +102,9 @@ const PlayerSchema = new mongoose.Schema({
   email: String,
   phone: String,
   score: Number,
-  stars: Number, // ⭐️ New field for star rating
+  stars: Number // ✅ ADD this if not added yet
 });
+
 
 const Player = mongoose.model('Player', PlayerSchema);
 
@@ -129,11 +130,8 @@ app.patch("/save-score", async (req, res) => {
   }
 
   try {
-    const updated = await Player.findByIdAndUpdate(
-      id,
-      { score, stars },
-      { new: true }
-    );
+    const updated = await Player.findByIdAndUpdate(id, { score, stars }, { new: true });
+
 
     if (!updated) {
       return res.status(404).json({ error: "User not found" });
