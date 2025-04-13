@@ -150,13 +150,60 @@ app.patch("/save-score", async (req, res) => {
 app.get('/admin-login', (req, res) => {
   res.send(`
     <html>
-      <head><title>Admin Login</title></head>
+      <head>
+        <title>Admin Login</title>
+        <style>
+          body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+          }
+          .login-box {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 300px;
+          }
+          h2 {
+            margin-bottom: 20px;
+            color: #333;
+          }
+          input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+          }
+          button {
+            background-color: #4facfe;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+          button:hover {
+            background-color: #00c6ff;
+          }
+        </style>
+      </head>
       <body>
-        <h2>Enter Admin Password</h2>
-        <form onsubmit="event.preventDefault(); login();">
-          <input type="password" id="pwd" placeholder="Password" required />
-          <button type="submit">Login</button>
-        </form>
+        <div class="login-box">
+          <h2>🔐 Admin Dashboard</h2>
+          <form onsubmit="event.preventDefault(); login();">
+            <input type="password" id="pwd" placeholder="Enter Admin Password" required />
+            <button type="submit">Login</button>
+          </form>
+        </div>
         <script>
           function login() {
             const pwd = document.getElementById('pwd').value;
@@ -167,6 +214,7 @@ app.get('/admin-login', (req, res) => {
     </html>
   `);
 });
+
 
 // Admin Dashboard Route with password protection
 app.get('/admin', async (req, res) => {
