@@ -144,8 +144,15 @@ app.patch("/save-score", async (req, res) => {
   }
 });
 
-// Admin Dashboard Route
+// Admin Dashboard Route with password protection
 app.get('/admin', async (req, res) => {
+  const adminPassword = 'Ubik@123'; // Set your admin password her
+
+  // Check if the password provided in the query parameter is correct
+  if (req.query.password !== adminPassword) {
+    return res.status(401).send('Unauthorized. Incorrect password.');
+  }
+
   try {
     const players = await Player.find(); // Fetch all player records from MongoDB
     res.send(`
